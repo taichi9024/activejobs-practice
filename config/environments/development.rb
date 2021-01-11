@@ -1,6 +1,19 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
+  config.action_mailer.perform_caching = false
+  config.action_mailer.default_url_options = {  host: 'localhost:3000' }
+  ActionMailer::Base.delivery_method = :letter_opener_web
+
+  # config.action_mailer.smtp_settings = {
+  #   address: 'smtp.sendgrind.net',
+  #   domain: 'hoge.example.com',
+  #   port: 587,
+  #   user_name: Rails.application.credentials.smtp_user_name,
+  #   password: Rails.application.credentials.smtp_password,
+  #   authentication: :plain,
+  #   enable_starttls_auto: true
+  # }
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded any time
@@ -37,6 +50,9 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = false
 
   config.action_mailer.perform_caching = false
+
+  config.action_mailer.delivery_method = :file
+  config.action_mailer.file_settings   = {location: Rails.root.join("tmp/mails")}
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

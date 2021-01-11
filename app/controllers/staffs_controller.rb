@@ -28,6 +28,7 @@ class StaffsController < ApplicationController
 
     respond_to do |format|
       if @staff.save
+        StaffMailer.send_mes(@staff).deliver_now!
         format.html { redirect_to @staff, notice: 'Staff was successfully created.' }
         format.json { render :show, status: :created, location: @staff }
       else
